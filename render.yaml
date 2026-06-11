@@ -1,0 +1,19 @@
+# Render Blueprint — deploy with one click from a Git repo.
+# https://render.com  ->  New  ->  Blueprint  ->  point at your repo.
+# After it deploys, set THESPORTSDB_KEY (and optionally MCP_AUTH_TOKEN) in the
+# service's Environment tab, then redeploy.
+services:
+  - type: web
+    name: prode-thesportsdb-mcp
+    runtime: docker
+    plan: free
+    healthCheckPath: /health
+    envVars:
+      - key: THESPORTSDB_KEY
+        sync: false      # set this secret in the Render dashboard
+      - key: MCP_AUTH_TOKEN
+        sync: false      # optional; set if you want to lock the endpoint
+      - key: WC_LEAGUE_ID
+        value: "4429"
+      - key: WC_SEASON
+        value: "2026"
